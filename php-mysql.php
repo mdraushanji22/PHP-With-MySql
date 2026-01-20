@@ -13,5 +13,6 @@ if ($conn->connect_error) {
 
 echo "Connection successful";
 echo "<br>";
+echo "<br>";
 $result = $conn->query("show tables")->fetch_all();
 print_r($result);

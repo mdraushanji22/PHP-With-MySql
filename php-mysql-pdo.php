@@ -1,9 +1,12 @@
 <?php
 $host = "localhost";
-$username="root";
+$username = "root";
 $password = null;
 
-try{
-    $conn = new PDO("mysql:host=$host; dbname=college",$username,$password);
+try {
+    $conn = new PDO("mysql:host=$host; dbname=college", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connect Done";
+} catch (PDOException $err) {
+    echo "Connect failed" . $err->getMessage();
 }

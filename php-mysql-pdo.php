@@ -10,3 +10,8 @@ try {
 } catch (PDOException $err) {
     echo "Connect failed" . $err->getMessage();
 }
+echo "<br>";
+$result = $conn->query("show tables");
+while ($row = $result->fetch(PDO::FETCH_NUM)) {
+    print_r($row);
+}

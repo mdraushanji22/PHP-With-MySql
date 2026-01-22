@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // SQL Query
-$sql = "SELECT id, name, course, batch, city, year FROM students";
+$sql = "SELECT * FROM students";
 $result = $conn->query($sql);
 ?>
 

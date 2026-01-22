@@ -1,4 +1,5 @@
 <?php
+include("./insert.html");
 
 $host = "localhost";
 $username = "root";

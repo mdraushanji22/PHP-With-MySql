@@ -1,4 +1,5 @@
 <?php
+// Database Connection
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -6,28 +7,76 @@ $database = "college";
 
 $conn = new mysqli($host, $username, $password, $database);
 
+// Check Connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$id     = $_POST['id'];
-$name   = $_POST['name'];
-$course = $_POST['course'];
-$batch  = $_POST['batch'];
-$city   = $_POST['city'];
-$year   = $_POST['year'];
+// SQL Query
+$sql = "SELECT * FROM students";
+$result = $conn->query($sql);
+?>
 
-$sql = "UPDATE students SET 
-            name='$name',
-            course='$course',
-            batch='$batch',
-            city='$city',
-            year='$year'
-        WHERE id=$id";
+<!DOCTYPE html>
+<html>
 
-if ($conn->query($sql) === TRUE) {
-    echo "Record Updated Successfully!";
-    echo "<br><a href='index.php'>Back to Table</a>";
-} else {
-    echo "Error updating record: " . $conn->error;
-}
+<head>
+    <title>Display Data</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Students Table</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Course</th>
+            <th>Batch</th>
+            <th>City</th>
+            <th>Year</th>
+            <th>Edit</th>
+        </tr>
+
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row['id'] . "</td>";
+                echo "<td>" . $row['name'] . "</td>";
+                echo "<td>" . $row['course'] . "</td>";
+                echo "<td>" . $row['batch'] . "</td>";
+                echo "<td>" . $row['city'] . "</td>";
+                echo "<td>" . $row['year'] . "</td>";
+
+                // Edit button only for year
+                echo "<td><a href='edit.php?id=" . $row['id'] . "'>Edit</a></td>";
+
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='7'>No Data Found</td></tr>";
+        }
+        ?>
+    </table>
+
+</body>
+
+</html>

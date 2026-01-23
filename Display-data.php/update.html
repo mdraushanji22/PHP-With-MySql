@@ -1,0 +1,49 @@
+<?php
+$host = "localhost";
+$username = "root";
+$password = "";
+$database = "college";
+
+$conn = new mysqli($host, $username, $password, $database);
+
+$id = $_GET['id'];
+
+$sql = "SELECT * FROM students WHERE id=$id";
+$result = $conn->query($sql); $row = $result->fetch_assoc(); ?>
+
+<!doctype html>
+<html>
+  <head>
+    <title>Edit Student</title>
+  </head>
+
+  <body>
+    <h2>Edit Student</h2>
+
+    <form action="update.php" method="POST">
+      <input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+
+      Name:
+      <input type="text" name="name" value="<?php echo $row['name']; ?>" />
+      <br /><br />
+
+      Course:
+      <input type="text" name="course" value="<?php echo $row['course']; ?>" />
+      <br /><br />
+
+      Batch:
+      <input type="text" name="batch" value="<?php echo $row['batch']; ?>" />
+      <br /><br />
+
+      City:
+      <input type="text" name="city" value="<?php echo $row['city']; ?>" />
+      <br /><br />
+
+      Year:
+      <input type="text" name="year" value="<?php echo $row['year']; ?>" />
+      <br /><br />
+
+      <button type="submit">Update</button>
+    </form>
+  </body>
+</html>
